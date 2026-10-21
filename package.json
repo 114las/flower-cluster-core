@@ -1,0 +1,11 @@
+{
+  "name": "@114las/flower-cluster-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dependency-free four-way cluster, scoring and gravity helpers for tile puzzles.",
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}
