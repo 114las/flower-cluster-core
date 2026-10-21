@@ -6,6 +6,8 @@ Use this when you need to find matching connected tiles, score a cluster, or com
 
 [Play the complete Bloom Pop game](https://play.imageworkflowlab.com/?utm_source=github&utm_medium=referral&utm_campaign=bloom_pop_channel_lab).
 
+[Try the interactive algorithm demo](https://114las.github.io/flower-cluster-core/demo/) without installing anything.
+
 ## Run
 
 Requires Node.js 20 or later for tests. No installation is needed:
@@ -48,3 +50,4 @@ Initial experimental release. The GitHub source can be used directly; npm public
 Tests cover adjacency boundaries, rectangular boards, scoring, gravity, no-op moves, immutability and input validation. The demo is deliberately small and does not include persistence, animation or platform SDK integration.
 
 MIT licensed. The license covers the files distributed in this repository; it does not grant rights to third-party platforms or their SDKs. See [LICENSE](LICENSE).
+
