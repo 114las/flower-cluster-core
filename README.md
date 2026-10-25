@@ -43,6 +43,34 @@ const result = applyMove(board, 3, 0, { colorCount: 3 });
 
 Boards are non-empty rectangular row-major arrays of non-negative integer tile types. `width` must divide the array length. RNG returns a finite value in `[0, 1)`. Invalid inputs throw. Inputs are never modified. Inject a seeded RNG if reproducible gameplay is required; the default is not seeded. This package is not designed for gambling or cryptographic randomness.
 
+## Integrate removal feedback without changing the wrong tiles
+
+`removed` contains positions in the board **before** gravity and refill. Keep that old board on screen while removal feedback plays. If you render `result.board` first and then animate the same indices, you will animate replacement tiles instead of the flowers the player selected.
+
+A UI controller can use this sequence (the rendering functions below are application-specific):
+
+```js
+let busy = false;
+
+async function selectTile(index) {
+  if (busy) return;
+  const result = applyMove(board, width, index);
+  if (!result.moved) return;
+  busy = true;
+  try {
+    // Resolve old tile nodes before replacing or rearranging the DOM.
+    await showRemoval(result.removed);
+    board = result.board;
+    render(board);
+    await showArrival();
+  } finally {
+    busy = false;
+  }
+}
+```
+
+Keep input disabled through both feedback stages, including restart. Provide a reduced-motion path that still makes the removed positions apparent. Handle animation cancellation or failure in your controller so the board cannot become stuck. This core package does not supply DOM effects, survivor-origin mappings, streak bonuses, star tiles or saved progress; those are separate game rules and UI responsibilities.
+
 ## Status and reuse
 
 Initial experimental release. The GitHub source can be used directly; npm publication is planned but not yet verified. No install command is advertised until registry publication is confirmed. `private: true` prevents accidental npm publication during preparation.
